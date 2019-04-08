@@ -51,9 +51,9 @@ void Vecteur<T>::resize(std::size_t size)
 }
 
 template <typename T>
-Vecteur<T>& Vecteur<T>::operator*( T valeur)
+Vecteur<T>& Vecteur<T>::operator*( const T& valeur)
 {
-
+	//check first
     for(std::size_t i = 0; i < this->_data.size(); i++)
     {
         this->at(i) = this->at(i) * valeur;
@@ -62,11 +62,41 @@ Vecteur<T>& Vecteur<T>::operator*( T valeur)
 	return *this;
 
 }
+template <typename T>
+Vecteur<T>& Vecteur<T>::operator*(const Vecteur<T>& valeur)
+{
+	//check first
+	for (std::size_t i = 0; i < this->_data.size(); i++)
+	{
+		this->at(i) = this->at(i) * valeur.at(i);
+	}
+
+	return *this;
+}
+
 
 template <typename T>
 Vecteur<T>& Vecteur<T>::operator+( const Vecteur<T>& v)
 {
-    //vérifier si la taille des vecteurs est simiaire
+	//check first
+	for (std::size_t i = 0; i < this->_data.size(); i++)
+	{
+		this->at(i) = this->at(i) + v.at(i);
+	}
+
+	return *this;
+}
+template <typename T>
+Vecteur<T>& Vecteur<T>::operator-(const Vecteur<T>& v)
+{
+
+	//check first
+	for (std::size_t i = 0; i < this->_data.size(); i++)
+	{
+		this->at(i) = this->at(i) - v.at(i);
+	}
+
+	return *this;
 }
 
 #endif

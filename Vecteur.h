@@ -18,9 +18,17 @@ std::ostream& operator<<(std::ostream &os,  const Vecteur<T>& v)
 }
 
 template <typename T>
-void operator*(const T &valeur, const Vecteur<T>& v)
+Vecteur<T> operator*(const T &valeur, const Vecteur<T>& v)
 {
+	Vecteur<T> res(v.size());
 
+	//check first
+	for (std::size_t i = 0; i < v.size(); i++)
+	{
+		res .at(i)= v.at(i) * valeur;
+	}
+
+	return res;
 }
 
 
@@ -29,7 +37,7 @@ class Vecteur
 {
     friend std::ostream& operator<< <T>(std::ostream &os,  const Vecteur<T>& v);
 
-    friend void operator*<T>(const T &valeur, const Vecteur<T>& v);
+    friend Vecteur<T> operator*<T>(const T &valeur, const Vecteur<T>& v);
 
     
     public:
@@ -73,7 +81,7 @@ class Vecteur
      * 
      * @param valeur 
      */
-    Vecteur& operator*( T valeur);
+    Vecteur& operator*( const T& valeur);
 
     /**
      * @brief 
