@@ -26,9 +26,11 @@ class Matrice
 	friend std::ostream& operator<< <T>(std::ostream& os, const Matrice<T>& m);
 	friend Matrice<T> operator* <T>(const T&valeur, const Matrice<T>& m);
 
+        public:
+           
 	Matrice();
-	Matrice(std::size_t l);
-	Matrice(std::size_t l, std::size_t c);
+	//Matrice(std::size_t l);
+	Matrice(std::size_t l, std::size_t c = 0);
 
 	Vecteur<T>& at(const std::size_t& pos);
 	Vecteur<T> at(const std::size_t& pos)const;
@@ -52,6 +54,10 @@ class Matrice
 	Matrice<T> operator*(const T& valeur);
 	Matrice<T> operator*(const Matrice<T>& m);
 	Matrice<T> operator+(const Matrice<T>& m);
+        
+        private:
+           
+        Vecteur<Vecteur<T>> _data;   
 };
 
 
