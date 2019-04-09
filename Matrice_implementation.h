@@ -6,17 +6,16 @@
 
 template<typename T>
 Matrice<T>::Matrice() {
-
+   _data.resize(1);
+   _data.at(1).resize(1);
 }
 
 template<typename T>
 Matrice<T>::Matrice(std::size_t l) {
-   
    _data.resize(l);
    for (std::size_t i = 0; i < l; i++) {
-      _data.at(i).resize(0);
+      _data.at(i).resize(1);
    }
-    
 }
 
 template<typename T>
@@ -53,6 +52,9 @@ std::size_t Matrice<T>::size() const {
 template<typename T>
 void Matrice<T>::resize(const std::size_t& l) {
    _data.resize(l);
+   for (std::size_t i = 0; i < l; i++) {
+      _data.at(i).resize(1);
+   }
 }
 
 template<typename T>
@@ -75,7 +77,7 @@ bool Matrice<T>::estVide() const {
 }
 
 template<typename T>
-bool Matrice<T>::estReguliere()const {
+bool Matrice<T>::estReguliere() const {
    bool toReturn = true;
    if (this->size()) {
       for (std::size_t i = 1; i < this->size(); i++) {
@@ -90,7 +92,7 @@ bool Matrice<T>::estReguliere()const {
 template<typename T>
 bool Matrice<T>::estCarree() const {
    if (this->size()) {
-      return estReguliere && this->at(0).size() == this->size();
+      return (this->estReguliere() && (this->at(0).size() == this->size()));
    } else {
       return true;
    }
@@ -100,7 +102,7 @@ template<typename T>
 Vecteur<T> Matrice<T>::sommeLignes() {
    Vecteur<T> toReturn(this->size());
    for (std::size_t i = 0; i < toReturn.size(); i++) {
-      toReturn.at(0) = this->at(i).somme();
+      toReturn.at(i) = this->at(i).somme();
    }
    return toReturn;
 }
@@ -109,9 +111,15 @@ template<typename T>
 Vecteur<T> Matrice<T>::sommeColonnes() {
    Vecteur<T> toReturn(this->size());
    if (!estReguliere()) {
-      Matrice temp = this;
+      Matrice<T> temp(this->size());
+      for (std::size_t l = 0; l < temp.size(); l++) {
+         temp.at(l).resize(this->at(l).size());
+         for (std::size_t l2 = 0; l2 < temp.at(l).size(); l2++) {
+            temp.at(l).at(l2) = this->at(l).at(l2);
+         }
+      }
       std::size_t maxColonne = 0;
-      for (std::size_t i = 0; i < temp.size(); i++) {
+      for (std::size_t i = 0; i < this->size(); i++) {
          if (this->at(i).size() > maxColonne) {
             maxColonne = this->at(i).size();
          }
@@ -135,7 +143,7 @@ Vecteur<T> Matrice<T>::sommeColonnes() {
 }
 
 template<typename T>
-Vecteur<T> Matrice<T>::sommeDiagonaleGD() {
+std::size_t Matrice<T>::sommeDiagonaleGD() {
    std::size_t toReturn = 0;
    if (estCarree()) {
       for (std::size_t i = 0; i < this->size(); i++) {
@@ -146,11 +154,11 @@ Vecteur<T> Matrice<T>::sommeDiagonaleGD() {
 }
 
 template<typename T>
-Vecteur<T> Matrice<T>::sommeDiagonaleDG() {
+std::size_t Matrice<T>::sommeDiagonaleDG() {
    std::size_t toReturn = 0;
    if (estCarree()) {
       for (std::size_t i = 0; i < this->size(); i++) {
-         toReturn += this->at(this->size() - i).at(this->size() - i);
+         toReturn += this->at(i).at(this->at(i).size() - i - 1);
       }
    }
    return toReturn;
@@ -159,7 +167,10 @@ Vecteur<T> Matrice<T>::sommeDiagonaleDG() {
 template<typename T>
 Matrice<T> Matrice<T>::operator*(const T& valeur) {
    //check first
-   Matrice temp = this;
+   Matrice<T> temp(this->size());
+   for (std::size_t k = 0; k < temp.size(); k++) {
+      temp.at(k).resize(this->at(k).size());
+   }
    for (std::size_t i = 0; i < this->size(); i++) {
       for (std::size_t j = 0; j < this->at(i).size(); j++) {
          temp.at(i).at(j) = this->at(i).at(j) * valeur;
@@ -171,7 +182,10 @@ Matrice<T> Matrice<T>::operator*(const T& valeur) {
 
 template<typename T >
 Matrice<T> Matrice<T>::operator*(const Matrice<T>& m) {
-   Matrice temp = this;
+   Matrice<T> temp(this->size());
+   for (std::size_t k = 0; k < temp.size(); k++) {
+      temp.at(k).resize(this->at(k).size());
+   }
    if (this->size() == m.size()) {
       bool MatriceSimilar = true;
       for (std::size_t k = 0; k < this->size(); k++) {
@@ -180,20 +194,28 @@ Matrice<T> Matrice<T>::operator*(const Matrice<T>& m) {
          }
       }
       if (MatriceSimilar) {
-         Matrice temp = this;
          for (std::size_t i = 0; i < this->size(); i++) {
             for (std::size_t j = 0; j < this->at(i).size(); j++) {
                temp.at(i).at(j) = this->at(i).at(j) * m.at(i).at(j);
             }
          }
       }
+      else{
+         // erreur colonne pas de memes tailles
+      }
+   }
+   else{
+      // erreur lignes pas de memes taille
    }
    return temp;
 }
 
 template<typename T >
 Matrice<T> Matrice<T>::operator+(const Matrice<T>& m) {
-   Matrice temp = this;
+   Matrice<T> temp(this->size());
+   for (std::size_t k = 0; k < temp.size(); k++) {
+      temp.at(k).resize(this->at(k).size());
+   }
    if (this->size() == m.size()) {
       bool MatriceSimilar = true;
       for (std::size_t k = 0; k < this->size(); k++) {
@@ -202,13 +224,18 @@ Matrice<T> Matrice<T>::operator+(const Matrice<T>& m) {
          }
       }
       if (MatriceSimilar) {
-         Matrice temp = this;
          for (std::size_t i = 0; i < this->size(); i++) {
             for (std::size_t j = 0; j < this->at(i).size(); j++) {
                temp.at(i).at(j) = this->at(i).at(j) + m.at(i).at(j);
             }
          }
       }
+      else{
+         // erreur colonne pas de memes tailles
+      }
+   }
+   else{
+      // erreur ligne pas de meme taille
    }
    return temp;
 }

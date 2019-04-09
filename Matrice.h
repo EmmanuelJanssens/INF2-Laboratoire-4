@@ -11,7 +11,10 @@ std::ostream& operator<<(std::ostream &os, const Matrice<T>& m) {
    for (std::size_t i = 0; i < m.size(); i++) {
       os << "[";
       for (std::size_t j = 0; j < m.at(i).size(); j++) {
-         os << m.at(i).at(j) << ", ";
+         os << m.at(i).at(j);
+         if( j != m.at(i).size() - 1){
+            os << ", ";
+         }
       }
       os << "]";
    }
@@ -61,8 +64,8 @@ public:
 
    Vecteur<T> sommeLignes();
    Vecteur<T> sommeColonnes();
-   Vecteur<T> sommeDiagonaleGD();
-   Vecteur<T> sommeDiagonaleDG();
+   std::size_t sommeDiagonaleGD();
+   std::size_t sommeDiagonaleDG();
 
    Matrice<T> operator*(const T& valeur);
    Matrice<T> operator*(const Matrice<T>& m);
