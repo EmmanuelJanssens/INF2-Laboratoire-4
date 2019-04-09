@@ -3,8 +3,11 @@
 
 #include <vector>
 #include <iostream>
+#include <string>
+
 #include "Exception.h"
 template <typename T> class Vecteur;
+
 
 template <typename T>
 std::ostream& operator<<(std::ostream &os, const Vecteur<T>& v) {
@@ -34,78 +37,79 @@ Vecteur<T> operator*(const T &valeur, const Vecteur<T>& v) {
 }
 
 template <typename T>
-class Vecteur {
-   friend std::ostream& operator<< <T>(std::ostream &os, const Vecteur<T>& v);
+class Vecteur
+{
+    friend std::ostream& operator<< <T>(std::ostream &os,  const Vecteur<T>& v);
 
-   friend Vecteur<T> operator*<T>(const T &valeur, const Vecteur<T>& v);
+    friend Vecteur<T> operator*<T>(const T &valeur, const Vecteur<T>& v);
 
+    
+    public:
 
-public:
-
-   Vecteur(std::size_t n);
-   Vecteur(const std::vector<T>& t);
+    Vecteur(std::size_t n = 0);
+    Vecteur(const std::vector<T>& t);
 
    // friend std::ostream& operator<< <T>(std::ostream &os, const Vecteur<T>& v);
 
-   /**
-    * @brief 
-    * 
-    * @param pos 
-    * @return T& 
-    */
-   T& at(std::size_t pos);
-   const T& at(std::size_t pos)const;
+    /**
+     * @brief 
+     * 
+     * @param pos 
+     * @return T& 
+     */
+    T& at(std::size_t pos) ;
+	const T& at(std::size_t pos)const ;
 
-   /**
-    * @brief 
-    * 
-    * @param size 
-    */
-   void resize(std::size_t size);
+    /**
+     * @brief 
+     * 
+     * @param size 
+     */
+    void resize(std::size_t size);
 
-   /**
-    * @brief 
-    * 
-    */
-   std::size_t size()const;
+    /**
+     * @brief 
+     * 
+     */
+    std::size_t size()const;
 
-   /**
-    * @brief 
-    * 
-    */
-   std::size_t somme();
-
-
-   /**
-    * @brief 
-    * 
-    * @param valeur 
-    */
-   Vecteur operator*(const T& valeur);
-
-   /**
-    * @brief 
-    * 
-    * @param v 
-    */
-   Vecteur operator*(const Vecteur<T>& v);
-
-   /**
-    * @brief 
-    * 
-    * @param v 
-    */
-   Vecteur operator+(const Vecteur<T>& v);
-
-   /**
-    * @brief 
-    * 
-    */
-   Vecteur operator-(const Vecteur<T>& v);
+    /**
+     * @brief 
+     * 
+     */
+    std::size_t somme();
 
 
-private:
-   std::vector<T> _data;
+    /**
+     * @brief 
+     * 
+     * @param valeur 
+     */
+    Vecteur operator*( const T& valeur);
+
+    /**
+     * @brief 
+     * 
+     * @param v 
+     */
+	Vecteur operator*( const Vecteur<T>& v);
+
+    /**
+     * @brief 
+     * 
+     * @param v 
+     */
+	Vecteur operator+( const Vecteur<T>& v);
+
+    /**
+     * @brief 
+     * 
+     */
+	Vecteur& operator-(const Vecteur<T>& v);
+
+    
+    private:
+    std::vector<T> _data;
 
 };
 
