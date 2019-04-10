@@ -7,7 +7,7 @@
 template<typename T>
 Matrice<T>::Matrice() {
    _data.resize(1);
-   _data.at(1).resize(1);
+   _data.at(0).resize(1);
 }
 
 template<typename T>
@@ -51,17 +51,23 @@ std::size_t Matrice<T>::size() const {
 
 template<typename T>
 void Matrice<T>::resize(const std::size_t& l) {
+   std::size_t oldSize = _data.size();
    _data.resize(l);
-   for (std::size_t i = 0; i < l; i++) {
-      _data.at(i).resize(1);
+   if (_data.size() - oldSize > 0) {
+      for (std::size_t i = oldSize; i < l; i++) {
+         _data.at(i).resize(1);
+      }
    }
 }
 
 template<typename T>
 void Matrice<T>::resize(const std::size_t&l, const std::size_t &c) {
+   std::size_t oldSize = _data.size();
    _data.resize(l);
-   for (std::size_t i = 0; i < l; i++) {
-      _data.at(i).resize(c);
+   if (_data.size() - oldSize > 0) {
+      for (std::size_t i = 0; i < l; i++) {
+         _data.at(i).resize(c);
+      }
    }
 }
 
@@ -199,12 +205,10 @@ Matrice<T> Matrice<T>::operator*(const Matrice<T>& m) {
                temp.at(i).at(j) = this->at(i).at(j) * m.at(i).at(j);
             }
          }
-      }
-      else{
+      } else {
          // erreur colonne pas de memes tailles
       }
-   }
-   else{
+   } else {
       // erreur lignes pas de memes taille
    }
    return temp;
@@ -229,12 +233,10 @@ Matrice<T> Matrice<T>::operator+(const Matrice<T>& m) {
                temp.at(i).at(j) = this->at(i).at(j) + m.at(i).at(j);
             }
          }
-      }
-      else{
+      } else {
          // erreur colonne pas de memes tailles
       }
-   }
-   else{
+   } else {
       // erreur ligne pas de meme taille
    }
    return temp;
