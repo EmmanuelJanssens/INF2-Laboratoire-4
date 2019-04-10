@@ -6,23 +6,19 @@
 
 template<typename T>
 Matrice<T>::Matrice() {
-   _data.resize(1);
-   _data.at(0).resize(1);
+   
 }
 
 template<typename T>
-Matrice<T>::Matrice(std::size_t l) {
-   _data.resize(l);
-   for (std::size_t i = 0; i < l; i++) {
-      _data.at(i).resize(1);
-   }
+Matrice<T>::Matrice(std::size_t lig) {
+   _data.resize(lig);
 }
 
 template<typename T>
-Matrice<T>::Matrice(std::size_t l, std::size_t c) {
-   _data.resize(l);
-   for (std::size_t i = 0; i < l; i++) {
-      _data.at(i).resize(c);
+Matrice<T>::Matrice(std::size_t lig, std::size_t col) {
+   _data.resize(lig);
+   for (std::size_t i = 0; i < lig; i++) {
+      _data.at(i).resize(col);
    }
 }
 
@@ -50,36 +46,25 @@ std::size_t Matrice<T>::size() const {
 }
 
 template<typename T>
-void Matrice<T>::resize(const std::size_t& l) {
-   std::size_t oldSize = _data.size();
-   _data.resize(l);
-   if (_data.size() - oldSize > 0) {
-      for (std::size_t i = oldSize; i < l; i++) {
-         _data.at(i).resize(1);
-      }
-   }
+void Matrice<T>::resize(const std::size_t& lig) {
+   _data.resize(lig);
 }
 
 template<typename T>
-void Matrice<T>::resize(const std::size_t&l, const std::size_t &c) {
-   std::size_t oldSize = _data.size();
-   _data.resize(l);
-   if (_data.size() - oldSize > 0) {
-      for (std::size_t i = 0; i < l; i++) {
-         _data.at(i).resize(c);
-      }
+void Matrice<T>::resize(const std::size_t&lig, const std::size_t &col) {
+   _data.resize(lig);
+   for (std::size_t i = 0; i < lig; i++) {
+      _data.at(i).resize(col);
    }
 }
 
 template<typename T>
 bool Matrice<T>::estVide() const {
-   bool toReturn = false;
+   bool toReturn = true;
    if (this->size()) {
-      for (std::size_t i = 0; i < this->size(); i++) {
-         toReturn += this->at(i).somme();
-      }
+      toReturn = false;
    }
-   return !toReturn;
+   return toReturn;
 }
 
 template<typename T>
