@@ -16,7 +16,7 @@ Remarque(s) : L'opération de multiplacation de deux matrices est
 
 Compilateur : MinGW-g++ 6.3.0
 -----------------------------------------------------------------------------------
-*/
+ */
 #ifndef MATRICE_IMPL_H
 #define MATRICE_IMPL_H
 
@@ -25,19 +25,34 @@ Compilateur : MinGW-g++ 6.3.0
 
 template<typename T>
 Matrice<T>::Matrice() {
-   
+
 }
 
 template<typename T>
 Matrice<T>::Matrice(std::size_t lig) {
-   _data.resize(lig);
+   try {
+      _data.resize(lig);
+   } catch (...) {
+      throw vecteur_range_error(makeMessage
+              (__FILE__, __FUNCTION__, __LINE__));
+   }
 }
 
 template<typename T>
 Matrice<T>::Matrice(std::size_t lig, std::size_t col) {
-   _data.resize(lig);
+   try {
+      _data.resize(lig);
+   } catch (...) {
+      throw vecteur_range_error(makeMessage
+              (__FILE__, __FUNCTION__, __LINE__));
+   }
    for (std::size_t i = 0; i < lig; i++) {
-      _data.at(i).resize(col);
+      try {
+         _data.at(i).resize(lig);
+      } catch (...) {
+         throw vecteur_range_error(makeMessage
+                 (__FILE__, __FUNCTION__, __LINE__));
+      }
    }
 }
 
@@ -46,7 +61,9 @@ Vecteur<T>& Matrice<T>::at(const std::size_t& pos) {
    if (pos < _data.size())
       return _data.at(pos);
    else {
-      //error 
+      throw vecteur_index_error(makeMessage
+              (__FILE__, __FUNCTION__, __LINE__) +
+              " : could not acces proper index");
    }
 }
 
@@ -55,7 +72,9 @@ Vecteur<T> Matrice<T>::at(const std::size_t& pos) const {
    if (pos < _data.size())
       return _data.at(pos);
    else {
-      //error 
+      throw vecteur_index_error(makeMessage
+              (__FILE__, __FUNCTION__, __LINE__) +
+              " : could not acces proper index");
    }
 }
 
@@ -71,9 +90,21 @@ void Matrice<T>::resize(const std::size_t& lig) {
 
 template<typename T>
 void Matrice<T>::resize(const std::size_t&lig, const std::size_t &col) {
-   _data.resize(lig);
+   try {
+      _data.resize(lig);
+   } catch (...) {
+      throw vecteur_range_error(makeMessage
+              (__FILE__, __FUNCTION__, __LINE__) +
+              " : could not resize vector data");
+   }
    for (std::size_t i = 0; i < lig; i++) {
-      _data.at(i).resize(col);
+      try {
+         _data.at(i).resize(col);
+      } catch (...) {
+         throw vecteur_range_error(makeMessage
+                 (__FILE__, __FUNCTION__, __LINE__) +
+                 " : could not resize vector data");
+      }
    }
 }
 
@@ -159,6 +190,9 @@ std::size_t Matrice<T>::sommeDiagonaleGD() {
       for (std::size_t i = 0; i < this->size(); i++) {
          toReturn += this->at(i).at(i);
       }
+   }else{
+      throw not_square_matrix(makeMessage
+              (__FILE__, __FUNCTION__, __LINE__));
    }
    return toReturn;
 }
@@ -170,6 +204,9 @@ std::size_t Matrice<T>::sommeDiagonaleDG() {
       for (std::size_t i = 0; i < this->size(); i++) {
          toReturn += this->at(i).at(this->at(i).size() - i - 1);
       }
+   }else{
+      throw not_square_matrix(makeMessage
+              (__FILE__, __FUNCTION__, __LINE__));
    }
    return toReturn;
 }
@@ -210,10 +247,12 @@ Matrice<T> Matrice<T>::operator*(const Matrice<T>& m) {
             }
          }
       } else {
-         // erreur colonne pas de memes tailles
+         throw not_square_matrix(makeMessage
+              (__FILE__, __FUNCTION__, __LINE__));
       }
    } else {
-      // erreur lignes pas de memes taille
+      throw not_square_matrix(makeMessage
+              (__FILE__, __FUNCTION__, __LINE__));
    }
    return temp;
 }
@@ -238,10 +277,12 @@ Matrice<T> Matrice<T>::operator+(const Matrice<T>& m) {
             }
          }
       } else {
-         // erreur colonne pas de memes tailles
+         throw not_square_matrix(makeMessage
+              (__FILE__, __FUNCTION__, __LINE__));
       }
    } else {
-      // erreur ligne pas de meme taille
+      throw not_square_matrix(makeMessage
+              (__FILE__, __FUNCTION__, __LINE__));
    }
    return temp;
 }
