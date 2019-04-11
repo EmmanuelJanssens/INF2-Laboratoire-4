@@ -43,7 +43,42 @@ int main() {
                 //test = v + v2;				//OK	
                 //v2 = v2 - v3;					//OK
 
-                cout << v << endl;
+                //cout << v << endl;
+				
+				Matrice<int> m(5, 5);
+				//cout << m << endl;
+				for (size_t i = 0; i < m.size(); i++) {
+					for (size_t j = 0; j < m.at(i).size(); j++) {
+						m.at(i).at(j) = 2;
+					}
+				}
+				for (size_t k = 0; k < m.size(); k++) {
+					m.at(k).resize(k + 1);
+				}
+
+				//cout << m << endl;
+
+				Matrice<int> m3(3, 3);
+				m3.at(0).at(0) = 1; m3.at(0).at(1) = 2; m3.at(0).at(2) = 3;
+				m3.at(1).at(0) = 4; m3.at(1).at(1) = 5; m3.at(1).at(2) = 6;
+				m3.at(2).at(0) = 7; m3.at(2).at(1) = 8; m3.at(2).at(2) = 9;
+				//cout << m3 << endl;
+				Matrice<int> m4 = m3;
+				//cout << m4 << endl;
+
+				Matrice<int> m5(5,2);
+				//m5.sommeDiagonaleDG();
+				//m3.at(4);
+				//cout << m5 << endl;
+
+				m5.resize(900000000000000);
+				//cout << m5 << endl;
+
+				//Matrice<int> Somme = m + m3;
+				//Matrice<int> multip = m5 * m;
+
+
+
 
         }
         catch (exception& e)
@@ -52,31 +87,8 @@ int main() {
                 system("PAUSE");
                 return EXIT_FAILURE;
         }
-   Matrice<int> m(5,5);
-   cout << m << endl;
-   for(size_t i = 0; i < m.size(); i++){
-      for(size_t j = 0; j < m.at(i).size(); j++){
-         m.at(i).at(j) = 2;
-      }
-   }
-   for(size_t k = 0; k < m.size(); k++){
-      m.at(k).resize(k + 1);
-   }
-   cout << m << endl;
-   
-   Matrice<int> m3(3,3);
-   m3.at(0).at(0) = 1; m3.at(0).at(1) = 2; m3.at(0).at(2) = 3;
-   m3.at(1).at(0) = 4; m3.at(1).at(1) = 5; m3.at(1).at(2) = 6;
-   m3.at(2).at(0) = 7; m3.at(2).at(1) = 8; m3.at(2).at(2) = 9;
-   cout << m3 << endl;
-   Matrice<int> m4 = m3;
-   cout << m4 << endl;
-   
-   Matrice<int> m5(5);
-   cout << m5 << endl;
-   m5.resize(7);
-   cout << m5 << endl;
-   
+
+
    system("PAUSE");
    return 0;
 }

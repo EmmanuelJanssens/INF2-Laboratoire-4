@@ -27,38 +27,28 @@ std::string makeMessage(std::string file, std::string function, int line) {
    return message;
 }
 
-class vecteur_index_error : public std::logic_error {
+class out_of_range : public std::logic_error {
 public:
 
-   explicit vecteur_index_error(const std::string& s) :
-   logic_error("VECTEUR : index error " + s) {
+   explicit out_of_range(const std::string& s) :
+   logic_error(" index error " + s) {
    }
 
-   explicit vecteur_index_error(const char* c) : logic_error(c) {
+   explicit out_of_range(const char* c) : logic_error(c) {
    }
 };
 
-class vecteur_length_error : public std::logic_error {
+class length_error : public std::logic_error {
 public:
 
-   explicit vecteur_length_error(const std::string& s) :
-   logic_error("VECTEUR : length error " + s) {
+   explicit length_error(const std::string& s) :
+   logic_error("length error " + s) {
    }
 
-   explicit vecteur_length_error(const char* c) : logic_error(c) {
+   explicit length_error(const char* c) : logic_error(c) {
    }
 };
 
-class vector_length_mismatch : public std::logic_error {
-public:
-
-   explicit vector_length_mismatch(const std::string& s) :
-   logic_error("VECTEUR : length mismatch " + s) {
-   }
-
-   explicit vector_length_mismatch(const char* c) : logic_error(c) {
-   }
-};
 
 class not_square_matrix : public std::logic_error {
 public:
@@ -71,25 +61,15 @@ public:
    }
 };
 
-class matrix_size_mismatch : public std::logic_error {
+
+class range_error : public std::runtime_error {
 public:
 
-   explicit matrix_size_mismatch(const std::string& s) :
-   logic_error("MATRIX : matrix size mismatch " + s) {
+   explicit range_error(const std::string& s) :
+   runtime_error("could not resize " + s) {
    }
 
-   explicit matrix_size_mismatch(const char* c) : logic_error(c) {
-   }
-};
-
-class vecteur_range_error : public std::runtime_error {
-public:
-
-   explicit vecteur_range_error(const std::string& s) :
-   runtime_error("VECTEUR : could not resize vecteur " + s) {
-   }
-
-   explicit vecteur_range_error(const char* c) : runtime_error(c) {
+   explicit range_error(const char* c) : runtime_error(c) {
    }
 };
 

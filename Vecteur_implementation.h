@@ -28,7 +28,7 @@ Vecteur<T>::Vecteur(std::size_t n) {
    try {
       _data.resize(n);
    } catch (...) {
-      throw vecteur_range_error(makeMessage
+      throw range_error("VECREUR: " +makeMessage
               (__FILE__, __FUNCTION__, __LINE__));
    }
 }
@@ -41,7 +41,7 @@ Vecteur<T>::Vecteur(const std::vector<T>& t) {
       _data.resize(t.size());
       std::copy(t.begin(), t.end(), _data.begin());
    } catch (...) {
-      throw vecteur_range_error(makeMessage
+      throw range_error(makeMessage
               (__FILE__, __FUNCTION__, __LINE__));
    }
 }
@@ -54,7 +54,7 @@ T& Vecteur<T>::at(std::size_t pos) {
    if (pos < _data.size()) {
       return _data.at(pos);
    } else {
-      throw vecteur_index_error(makeMessage
+      throw out_of_range(makeMessage
               (__FILE__, __FUNCTION__, __LINE__) +
               " : could not acces proper index");
    }
@@ -68,7 +68,7 @@ const T& Vecteur<T>::at(std::size_t pos)const {
    if (pos < _data.size()) {
       return _data.at(pos);
    } else {
-      throw vecteur_index_error(makeMessage
+      throw out_of_range(makeMessage
               (__FILE__, __FUNCTION__, __LINE__) +
               " : could not acces proper index");
    }
@@ -89,7 +89,7 @@ void Vecteur<T>::resize(std::size_t size) {
    try {
       _data.resize(size, 0);
    } catch (...) {
-      throw vecteur_range_error(makeMessage
+      throw range_error("VECTEUR " + makeMessage
               (__FILE__, __FUNCTION__, __LINE__) +
               " : could not resize vector data");
    }
@@ -115,7 +115,7 @@ template <typename T>
 Vecteur<T> Vecteur<T>::operator*(const Vecteur<T>& vecteur) {
 
    if (vecteur.size() != this->size())
-      throw vector_length_mismatch(makeMessage
+      throw length_error("VECTEUR "+ makeMessage
            (__FILE__, __FUNCTION__, __LINE__) +
            " : Trying to multiply vectors of different length");
 
@@ -133,7 +133,7 @@ Vecteur<T> Vecteur<T>::operator*(const Vecteur<T>& vecteur) {
 template <typename T>
 Vecteur<T> Vecteur<T>::operator+(const Vecteur<T>& v) {
    if (v.size() != this->size())
-      throw vector_length_mismatch(makeMessage
+      throw length_error("VECTEUR " +makeMessage
            (__FILE__, __FUNCTION__, __LINE__) +
            " : Trying to add vectors of different length");
    Vecteur<T> temp(this->size());
