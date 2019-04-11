@@ -1,3 +1,22 @@
+/*
+-----------------------------------------------------------------------------------
+Laboratoire : 04
+
+Fichier     : Vecteur.h
+
+Auteur(s)   : Emmanuel Janssens et Pierre-Olivier Sandoz
+
+Date        : 11.04.2019
+
+But         : Définition des fonctions de la classe générique Matrice
+
+Remarque(s) : L'opération de multiplacation de deux matrices est 
+ 
+              mathématiquement fausse
+
+Compilateur : MinGW-g++ 6.3.0
+-----------------------------------------------------------------------------------
+*/
 #ifndef MATRICE_IMPL_H
 #define MATRICE_IMPL_H
 

@@ -1,16 +1,12 @@
 /*
-
 -----------------------------------------------------------------------------------
-
 Laboratoire : 04
 
 Fichier     : main.cpp
 
 Auteur(s)   : Emmanuel Janssens et Pierre-Olivier Sandoz
 
-Date        : 25.03.2019
-
-
+Date        : 11.04.2019
 
 But         : le but de se laboratoire est de créer deux classes génériques,
 
@@ -20,16 +16,10 @@ But         : le but de se laboratoire est de créer deux classes génériques,
    
               l'utilisation des exceptions.
 
-
-
 Remarque(s) : -
 
-
-
 Compilateur : MinGW-g++ 6.3.0
-
 -----------------------------------------------------------------------------------
-
 */
 #include "Matrice.h"
 

@@ -1,3 +1,20 @@
+/*
+-----------------------------------------------------------------------------------
+Laboratoire : 04
+
+Fichier     : Vecteur.h
+
+Auteur(s)   : Emmanuel Janssens et Pierre-Olivier Sandoz
+
+Date        : 11.04.2019
+
+But         : Déclaration des fonctions de la classe générique Vecteur
+
+Remarque(s) : -
+
+Compilateur : MinGW-g++ 6.3.0
+-----------------------------------------------------------------------------------
+*/
 #ifndef VECTEUR_H
 #define VECTEUR_H
 
@@ -52,7 +69,7 @@ class Vecteur
    // friend std::ostream& operator<< <T>(std::ostream &os, const Vecteur<T>& v);
 
     /**
-     * @brief 
+     * @brief Accès à l’élément en position pos (lecteur et écriture)
      * 
      * @param pos 
      * @return T& 
@@ -61,49 +78,60 @@ class Vecteur
 	const T& at(std::size_t pos)const ;
 
     /**
-     * @brief 
+     * @brief Redimensionne le vecteur
      * 
      * @param size 
      */
     void resize(std::size_t size);
 
     /**
-     * @brief 
+     * @brief Retourne la taille actuelle
      * 
+     * @return size_t
      */
     std::size_t size()const;
 
     /**
-     * @brief 
+     * @brief Retourne la somme des éléments contenus
      * 
+     * @return size_t
      */
     std::size_t somme();
 
 
     /**
-     * @brief 
+     * @brief Multiplie chaque élément par valeur et retour le
+     *        vecteur correspondant
      * 
      * @param valeur 
+     * @return Vecteur
      */
     Vecteur operator*( const T& valeur);
 
     /**
-     * @brief 
+     * @brief Multiplie chaque élément entre eux et retourne le
+     *        vecteur correspondant
      * 
      * @param v 
+     * @return Vecteur
      */
 	Vecteur operator*( const Vecteur<T>& v);
 
     /**
-     * @brief 
+     * @brief Retourne un vecteur correspondant à l’addition de 
+     *        chacun des éléments
      * 
      * @param v 
+     * @return Vecteur
      */
 	Vecteur operator+( const Vecteur<T>& v);
 
     /**
-     * @brief 
+     * @brief Retourne un vecteur correspondant à la soustraction de 
+     *        chacun des éléments
      * 
+     * @param v 
+     * @return Vecteur&
      */
 	Vecteur& operator-(const Vecteur<T>& v);
 

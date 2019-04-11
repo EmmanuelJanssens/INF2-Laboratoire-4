@@ -1,4 +1,20 @@
+/*
+-----------------------------------------------------------------------------------
+Laboratoire : 04
 
+Fichier     : Vecteur_implementation.h
+
+Auteur(s)   : Emmanuel Janssens et Pierre-Olivier Sandoz
+
+Date        : 11.04.2019
+
+But         : Définition des fonctions de la classe générique Vecteur
+
+Remarque(s) : -
+
+Compilateur : MinGW-g++ 6.3.0
+-----------------------------------------------------------------------------------
+*/
 #ifndef VECTEUR_IMPLEM_H
 #define VECTEUR_IMPLEM_H
 

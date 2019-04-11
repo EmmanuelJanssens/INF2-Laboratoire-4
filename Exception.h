@@ -1,4 +1,20 @@
-#ifndef EXCEPTION_H
+/*
+-----------------------------------------------------------------------------------
+Laboratoire : 04
+
+Fichier     : Vecteur.h
+
+Auteur(s)   : Emmanuel Janssens et Pierre-Olivier Sandoz
+
+Date        : 11.04.2019
+
+But         : Classe gérant les exceptions
+
+Remarque(s) : -
+
+Compilateur : MinGW-g++ 6.3.0
+-----------------------------------------------------------------------------------
+*/#ifndef EXCEPTION_H
 #define EXCEPTION_H
 
 #include <exception>

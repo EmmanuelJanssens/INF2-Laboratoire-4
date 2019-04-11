@@ -1,3 +1,20 @@
+/*
+-----------------------------------------------------------------------------------
+Laboratoire : 04
+
+Fichier     : Vecteur.h
+
+Auteur(s)   : Emmanuel Janssens et Pierre-Olivier Sandoz
+
+Date        : 11.04.2019
+
+But         : Déclaration des fonctions de la classe générique Matrice
+
+Remarque(s) : -
+
+Compilateur : MinGW-g++ 6.3.0
+-----------------------------------------------------------------------------------
+*/
 #ifndef MATRICE_H
 #define MATRICE_H
 
