@@ -25,7 +25,7 @@ Compilateur : MinGW-g++ 6.3.0
 #include "Exception.h"
 template <typename T> class Vecteur;
 
-
+// Surcharge de l'opérateur de flux de sortie
 template <typename T>
 std::ostream& operator<<(std::ostream &os, const Vecteur<T>& v) {
    if(v.size() > 1){
@@ -41,11 +41,11 @@ std::ostream& operator<<(std::ostream &os, const Vecteur<T>& v) {
    return os;
 }
 
+// Surcharge de l'opérateur de multiplication d'une matrice 
 template <typename T>
 Vecteur<T> operator*(const T &valeur, const Vecteur<T>& v) {
    Vecteur<T> res(v.size());
 
-   //check first
    for (std::size_t i = 0; i < v.size(); i++) {
       res .at(i) = v.at(i) * valeur;
    }
@@ -56,8 +56,22 @@ Vecteur<T> operator*(const T &valeur, const Vecteur<T>& v) {
 template <typename T>
 class Vecteur
 {
+   /**
+     * @brief Surcharge de l'opérateur de flux de sortie
+     * 
+     * @param os : le flux de sortie 
+     * @param v
+     * @return ostream& : le flux de sortie 
+     */
     friend std::ostream& operator<< <T>(std::ostream &os,  const Vecteur<T>& v);
-
+    /**
+     * @brief Surcharge de l'opérateur de multiplication d'une matrice 
+     * par une valeur
+     * 
+     * @param valeur 
+     * @param m
+     * @return Matrice<T> 
+     */
     friend Vecteur<T> operator*<T>(const T &valeur, const Vecteur<T>& v);
 
     

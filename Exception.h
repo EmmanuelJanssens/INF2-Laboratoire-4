@@ -2,7 +2,7 @@
 -----------------------------------------------------------------------------------
 Laboratoire : 04
 
-Fichier     : Vecteur.h
+Fichier     : Exception.h
 
 Auteur(s)   : Emmanuel Janssens et Pierre-Olivier Sandoz
 
@@ -14,7 +14,8 @@ Remarque(s) : -
 
 Compilateur : MinGW-g++ 6.3.0
 -----------------------------------------------------------------------------------
-*/#ifndef EXCEPTION_H
+*/
+#ifndef EXCEPTION_H
 #define EXCEPTION_H
 
 #include <exception>

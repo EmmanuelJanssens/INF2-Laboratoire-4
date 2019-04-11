@@ -2,7 +2,7 @@
 -----------------------------------------------------------------------------------
 Laboratoire : 04
 
-Fichier     : Vecteur.h
+Fichier     : Matrice_implementation.h
 
 Auteur(s)   : Emmanuel Janssens et Pierre-Olivier Sandoz
 
