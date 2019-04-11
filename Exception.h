@@ -61,6 +61,16 @@ public:
    }
 };
 
+class matrix_empty : public std::logic_error {
+public:
+
+   explicit matrix_empty(const std::string& s) :
+   logic_error("MATRIX : matrix is empty " + s) {
+   }
+
+   explicit matrix_empty(const char* c) : logic_error(c) {
+   }
+};
 
 class range_error : public std::runtime_error {
 public:

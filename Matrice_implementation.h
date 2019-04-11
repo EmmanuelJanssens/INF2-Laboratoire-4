@@ -30,95 +30,94 @@ Matrice<T>::Matrice() {
 
 template<typename T>
 Matrice<T>::Matrice(std::size_t lig) {
-	try
-	{
-		_data.resize(lig);
+   
+   try {
+      _data.resize(lig);
 
-	}
-	catch (...)
-	{
-		throw range_error("MATRIX " +makeMessage
-		(__FILE__, __FUNCTION__, __LINE__));
-	}
+   } catch (...) {
+      throw range_error("MATRIX " + makeMessage
+              (__FILE__, __FUNCTION__, __LINE__));
+   }
 }
 
 template<typename T>
 Matrice<T>::Matrice(std::size_t lig, std::size_t col) {
-	try
-	{
-		_data.resize(lig);
-		for (std::size_t i = 0; i < lig; i++) {
-			_data.at(i).resize(col);
-		}
-	}
-	catch (...)
-	{
-		throw range_error("MATRIX "  +makeMessage
-		(__FILE__, __FUNCTION__, __LINE__));
-	}
+   
+   try {
+      _data.resize(lig);
+      for (std::size_t i = 0; i < lig; i++) {
+         _data.at(i).resize(col);
+      }
+   } catch (...) {
+      throw range_error("MATRIX " + makeMessage
+              (__FILE__, __FUNCTION__, __LINE__));
+   }
 }
 
 template<typename T>
 Vecteur<T>& Matrice<T>::at(const std::size_t& pos) {
+   
    if (pos < _data.size())
       return _data.at(pos);
    else {
       //error 
-      throw out_of_range( "MATRIX :" + makeMessage
-	  (__FILE__, __FUNCTION__, __LINE__));
+      throw out_of_range("MATRIX :" + makeMessage
+              (__FILE__, __FUNCTION__, __LINE__));
    }
 }
 
 template<typename T>
 Vecteur<T> Matrice<T>::at(const std::size_t& pos) const {
+   
    if (pos < _data.size())
       return _data.at(pos);
    else {
       //error
-	   throw out_of_range("MATRIX :"  +makeMessage
-	   (__FILE__, __FUNCTION__, __LINE__));
+      throw out_of_range("MATRIX :" + makeMessage
+              (__FILE__, __FUNCTION__, __LINE__));
    }
 }
 
 template<typename T>
 std::size_t Matrice<T>::size() const {
-		return _data.size();
+   
+   return _data.size();
 }
 
 template<typename T>
 void Matrice<T>::resize(const std::size_t& lig) {
-	try
-	{
-		_data.resize(lig);
+   
+   try {
+      _data.resize(lig);
 
-	}
-	catch (...)
-	{
-		throw range_error("MATRIX "  +makeMessage
-		(__FILE__, __FUNCTION__, __LINE__));
-	}
+   } catch (...) {
+      throw range_error("MATRIX " + makeMessage
+              (__FILE__, __FUNCTION__, __LINE__));
+   }
 }
 
 template<typename T>
 void Matrice<T>::resize(const std::size_t&lig, const std::size_t &col) {
+   
    try {
       _data.resize(lig);
    } catch (...) {
       throw range_error(makeMessage
-              (__FILE__, __FUNCTION__, __LINE__) );
+              (__FILE__, __FUNCTION__, __LINE__));
    }
    for (std::size_t i = 0; i < lig; i++) {
       try {
          _data.at(i).resize(col);
       } catch (...) {
-		  throw range_error(makeMessage
-		  (__FILE__, __FUNCTION__, __LINE__));
+         throw range_error(makeMessage
+                 (__FILE__, __FUNCTION__, __LINE__));
       }
    }
 }
 
 template<typename T>
 bool Matrice<T>::estVide() const {
+   
    bool toReturn = true;
    if (this->size()) {
       toReturn = false;
@@ -128,6 +127,7 @@ bool Matrice<T>::estVide() const {
 
 template<typename T>
 bool Matrice<T>::estReguliere() const {
+   
    bool toReturn = true;
    if (this->size()) {
       for (std::size_t i = 1; i < this->size(); i++) {
@@ -141,6 +141,7 @@ bool Matrice<T>::estReguliere() const {
 
 template<typename T>
 bool Matrice<T>::estCarree() const {
+   
    if (this->size()) {
       return (this->estReguliere() && (this->at(0).size() == this->size()));
    } else {
@@ -150,6 +151,7 @@ bool Matrice<T>::estCarree() const {
 
 template<typename T>
 Vecteur<T> Matrice<T>::sommeLignes() {
+   
    Vecteur<T> toReturn(this->size());
    for (std::size_t i = 0; i < toReturn.size(); i++) {
       toReturn.at(i) = this->at(i).somme();
@@ -159,6 +161,7 @@ Vecteur<T> Matrice<T>::sommeLignes() {
 
 template<typename T>
 Vecteur<T> Matrice<T>::sommeColonnes() {
+   
    Vecteur<T> toReturn(this->size());
    if (!estReguliere()) {
       Matrice<T> temp(this->size());
@@ -193,13 +196,20 @@ Vecteur<T> Matrice<T>::sommeColonnes() {
 }
 
 template<typename T>
-std::size_t Matrice<T>::sommeDiagonaleGD() {
-   std::size_t toReturn = 0;
+T Matrice<T>::sommeDiagonaleGD() {
+   
+   T toReturn;
    if (estCarree()) {
-      for (std::size_t i = 0; i < this->size(); i++) {
-         toReturn += this->at(i).at(i);
+      if (this->size()) {
+         toReturn = this->at(0).at(0);
+         for (std::size_t i = 1; i < this->size(); i++) {
+            toReturn += this->at(i).at(i);
+         }
+      } else {
+         throw matrix_empty(makeMessage
+                 (__FILE__, __FUNCTION__, __LINE__));
       }
-   }else{
+   } else {
       throw not_square_matrix(makeMessage
               (__FILE__, __FUNCTION__, __LINE__));
    }
@@ -208,17 +218,22 @@ std::size_t Matrice<T>::sommeDiagonaleGD() {
 }
 
 template<typename T>
-std::size_t Matrice<T>::sommeDiagonaleDG() {
-   std::size_t toReturn = 0;
+T Matrice<T>::sommeDiagonaleDG() {
+   
+   T toReturn;
    if (estCarree()) {
-      for (std::size_t i = 0; i < this->size(); i++) {
-         toReturn += this->at(i).at(this->at(i).size() - i - 1);
+      if (this->size()) {
+         toReturn = this->at(0).at(this->at(0).size() - 1);
+         for (std::size_t i = 1; i < this->size(); i++) {
+            toReturn += this->at(i).at(this->at(i).size() - i - 1);
+         }
+      } else {
+         throw matrix_empty(makeMessage
+                 (__FILE__, __FUNCTION__, __LINE__));
       }
-   }
-   else
-   {
+   } else {
       throw not_square_matrix("MATRIX " + makeMessage
-	  (__FILE__, __FUNCTION__, __LINE__));
+              (__FILE__, __FUNCTION__, __LINE__));
    }
    return toReturn;
 }
@@ -226,7 +241,6 @@ std::size_t Matrice<T>::sommeDiagonaleDG() {
 template<typename T>
 Matrice<T> Matrice<T>::operator*(const T& valeur) {
 
-   
    Matrice<T> temp(this->size());
    for (std::size_t k = 0; k < temp.size(); k++) {
       temp.at(k).resize(this->at(k).size());
@@ -242,6 +256,7 @@ Matrice<T> Matrice<T>::operator*(const T& valeur) {
 
 template<typename T >
 Matrice<T> Matrice<T>::operator*(const Matrice<T>& m) {
+   
    Matrice<T> temp(this->size());
    for (std::size_t k = 0; k < temp.size(); k++) {
       temp.at(k).resize(this->at(k).size());
@@ -262,12 +277,12 @@ Matrice<T> Matrice<T>::operator*(const Matrice<T>& m) {
       } else {
          // erreur colonne pas de memes tailles
          throw length_error("MATRIX_Collumns " + makeMessage
-		 (__FILE__, __FUNCTION__, __LINE__));
+                 (__FILE__, __FUNCTION__, __LINE__));
       }
    } else {
       // erreur lignes pas de memes taille
-       throw length_error("MATRIX_Lines " + makeMessage
-	   (__FILE__, __FUNCTION__, __LINE__));
+      throw length_error("MATRIX_Lines " + makeMessage
+              (__FILE__, __FUNCTION__, __LINE__));
 
    }
    return temp;
@@ -275,6 +290,7 @@ Matrice<T> Matrice<T>::operator*(const Matrice<T>& m) {
 
 template<typename T >
 Matrice<T> Matrice<T>::operator+(const Matrice<T>& m) {
+   
    Matrice<T> temp(this->size());
    for (std::size_t k = 0; k < temp.size(); k++) {
       temp.at(k).resize(this->at(k).size());
@@ -295,13 +311,13 @@ Matrice<T> Matrice<T>::operator+(const Matrice<T>& m) {
       } else {
          // erreur colonne pas de memes tailles
          throw length_error("MATRIX_Collumns " + makeMessage
-		 (__FILE__, __FUNCTION__, __LINE__));
+                 (__FILE__, __FUNCTION__, __LINE__));
 
       }
    } else {
       // erreur ligne pas de meme taille
-       throw length_error("MATRIX_Lines "+ makeMessage
-	   (__FILE__, __FUNCTION__, __LINE__));
+      throw length_error("MATRIX_Lines " + makeMessage
+              (__FILE__, __FUNCTION__, __LINE__));
    }
    return temp;
 }

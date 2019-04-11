@@ -25,6 +25,7 @@ Compilateur : MinGW-g++ 6.3.0
 
 template <typename T>
 Vecteur<T>::Vecteur(std::size_t n) {
+   
    try {
       _data.resize(n);
    } catch (...) {
@@ -37,6 +38,7 @@ Vecteur<T>::Vecteur(std::size_t n) {
 
 template <typename T>
 Vecteur<T>::Vecteur(const std::vector<T>& t) {
+   
    try {
       _data.resize(t.size());
       std::copy(t.begin(), t.end(), _data.begin());
@@ -51,6 +53,7 @@ Vecteur<T>::Vecteur(const std::vector<T>& t) {
 
 template <typename T>
 T& Vecteur<T>::at(std::size_t pos) {
+   
    if (pos < _data.size()) {
       return _data.at(pos);
    } else {
@@ -65,6 +68,7 @@ T& Vecteur<T>::at(std::size_t pos) {
 
 template <typename T>
 const T& Vecteur<T>::at(std::size_t pos)const {
+   
    if (pos < _data.size()) {
       return _data.at(pos);
    } else {
@@ -79,6 +83,7 @@ const T& Vecteur<T>::at(std::size_t pos)const {
 
 template <typename T>
 std::size_t Vecteur<T>::size()const {
+   
    return _data.size();
 }
 
@@ -86,8 +91,9 @@ std::size_t Vecteur<T>::size()const {
 
 template <typename T>
 void Vecteur<T>::resize(std::size_t size) {
+   
    try {
-      _data.resize(size, 0);
+      _data.resize(size);
    } catch (...) {
       throw range_error("VECTEUR " + makeMessage
               (__FILE__, __FUNCTION__, __LINE__) +
@@ -99,6 +105,7 @@ void Vecteur<T>::resize(std::size_t size) {
 
 template <typename T>
 Vecteur<T> Vecteur<T>::operator*(const T& valeur) {
+   
    Vecteur<T> temp(this->size());
    for (std::size_t i = 0; i < this->_data.size(); i++) {
       temp.at(i) = this->at(i) * valeur;
@@ -131,6 +138,7 @@ Vecteur<T> Vecteur<T>::operator*(const Vecteur<T>& vecteur) {
 
 template <typename T>
 Vecteur<T> Vecteur<T>::operator+(const Vecteur<T>& v) {
+   
    if (v.size() != this->size())
       throw length_error("VECTEUR " +makeMessage
            (__FILE__, __FUNCTION__, __LINE__) +
@@ -139,7 +147,7 @@ Vecteur<T> Vecteur<T>::operator+(const Vecteur<T>& v) {
    //check first
    //throw sizedifferece("
    for (std::size_t i = 0; i < this->_data.size(); i++) {
-      temp = this->at(i) + v.at(i);
+      temp.at(i) = this->at(i) + v.at(i);
    }
 
    return temp;
@@ -148,9 +156,10 @@ Vecteur<T> Vecteur<T>::operator+(const Vecteur<T>& v) {
 //numeric error
 
 template <typename T>
-Vecteur<T>& Vecteur<T>::operator-(const Vecteur<T>& v) {
+Vecteur<T> Vecteur<T>::operator-(const Vecteur<T>& v) {
+   
    Vecteur<T> temp(this->size());
-   //check first
+
    for (std::size_t i = 0; i < this->_data.size(); i++) {
       this->at(i) = this->at(i) - v.at(i);
    }
@@ -159,7 +168,8 @@ Vecteur<T>& Vecteur<T>::operator-(const Vecteur<T>& v) {
 }
 
 template <typename T>
-std::size_t Vecteur<T>::somme() {
+T Vecteur<T>::somme() {
+   
    if (this->size()) {
       T toReturn = this->at(0);
       for (std::size_t i = 1; i < this->size(); i++) {

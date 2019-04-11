@@ -162,14 +162,14 @@ public:
      * 
      * @return size_t 
      */
-   std::size_t sommeDiagonaleGD();
+   T sommeDiagonaleGD();
    
    /**
      * @brief Retourne la somme des valeurs de la diagonale Droite-Gauche
      * 
      * @return size_t 
      */
-   std::size_t sommeDiagonaleDG();
+   T sommeDiagonaleDG();
 
    /**
      * @brief Retourne la matrice dont tous les éléments ont été multipliés 

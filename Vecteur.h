@@ -108,9 +108,9 @@ class Vecteur
     /**
      * @brief Retourne la somme des éléments contenus
      * 
-     * @return size_t
+     * @return T
      */
-    std::size_t somme();
+    T somme();
 
 
     /**
@@ -145,9 +145,9 @@ class Vecteur
      *        chacun des éléments
      * 
      * @param v 
-     * @return Vecteur&
+     * @return Vecteur
      */
-	Vecteur& operator-(const Vecteur<T>& v);
+	Vecteur operator-(const Vecteur<T>& v);
 
     
     private:
