@@ -104,17 +104,15 @@ void Matrice<T>::resize(const std::size_t&lig, const std::size_t &col) {
    try {
       _data.resize(lig);
    } catch (...) {
-      throw vecteur_range_error(makeMessage
-              (__FILE__, __FUNCTION__, __LINE__) +
-              " : could not resize vector data");
+      throw range_error(makeMessage
+              (__FILE__, __FUNCTION__, __LINE__) );
    }
    for (std::size_t i = 0; i < lig; i++) {
       try {
          _data.at(i).resize(col);
       } catch (...) {
-         throw vecteur_range_error(makeMessage
-                 (__FILE__, __FUNCTION__, __LINE__) +
-                 " : could not resize vector data");
+		  throw range_error(makeMessage
+		  (__FILE__, __FUNCTION__, __LINE__));
       }
    }
 }
@@ -205,11 +203,7 @@ std::size_t Matrice<T>::sommeDiagonaleGD() {
       throw not_square_matrix(makeMessage
               (__FILE__, __FUNCTION__, __LINE__));
    }
-   else
-   {
-	   throw not_square_matrix("MATRIX " + makeMessage
-	   (__FILE__, __FUNCTION__, __LINE__));
-   }
+
    return toReturn;
 }
 
@@ -220,9 +214,6 @@ std::size_t Matrice<T>::sommeDiagonaleDG() {
       for (std::size_t i = 0; i < this->size(); i++) {
          toReturn += this->at(i).at(this->at(i).size() - i - 1);
       }
-   }else{
-      throw not_square_matrix(makeMessage
-              (__FILE__, __FUNCTION__, __LINE__));
    }
    else
    {

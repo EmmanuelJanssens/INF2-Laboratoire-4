@@ -54,7 +54,6 @@ int main() {
       for (size_t k = 0; k < m.size(); k++) {
          m.at(k).resize(k + 1);
       }
-      cout << m << endl;
 
       Matrice<int> m3(3, 3);
       m3.at(0).at(0) = 1;
@@ -66,15 +65,19 @@ int main() {
       m3.at(2).at(0) = 7;
       m3.at(2).at(1) = 8;
       m3.at(2).at(2) = 9;
-      cout << m3 << endl;
-      Matrice<int> m4 = m3;
-      cout << m4 << endl;
+      
+	  Matrice<int> m4 = m3;
+      Matrice<int> m5(5,1);
 
-      Matrice<int> m5(5);
-      cout << m5 << endl;
-      m5.resize(7);
-      cout << m5 << endl;
-      cout << m5.at(2).at(2);
+	  //Matrice<int> somme = m5 + m3;	//OK
+		//Matrice<int> mult = m5 * m3;	//OK
+	  //m5.sommeDiagonaleDG();			//OK
+	  //m5.sommeDiagonaleGD();			//OK
+	  //m5.resize(7890987000);			//OK
+	  //m5.at(10);						//OK
+	  //m5.at(0).at(100);				//OK
+
+
    } catch (exception& e) {
       cout << e.what() << endl;
       system("PAUSE");
