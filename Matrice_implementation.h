@@ -16,7 +16,7 @@ Remarque(s) : L'opération de multiplacation de deux matrices est
 
 Compilateur : MinGW-g++ 6.3.0
 -----------------------------------------------------------------------------------
-*/
+ */
 #ifndef MATRICE_IMPL_H
 #define MATRICE_IMPL_H
 
@@ -25,7 +25,7 @@ Compilateur : MinGW-g++ 6.3.0
 
 template<typename T>
 Matrice<T>::Matrice() {
-   
+
 }
 
 template<typename T>
@@ -101,20 +101,22 @@ void Matrice<T>::resize(const std::size_t& lig) {
 
 template<typename T>
 void Matrice<T>::resize(const std::size_t&lig, const std::size_t &col) {
-
-	try
-	{
-		_data.resize(lig);
-		for (std::size_t i = 0; i < lig; i++) {
-			_data.at(i).resize(col);
-		}
-	}
-	catch (...)
-	{
-		throw range_error("MATRIX " +makeMessage
-		(__FILE__, __FUNCTION__, __LINE__));
-	}
-
+   try {
+      _data.resize(lig);
+   } catch (...) {
+      throw vecteur_range_error(makeMessage
+              (__FILE__, __FUNCTION__, __LINE__) +
+              " : could not resize vector data");
+   }
+   for (std::size_t i = 0; i < lig; i++) {
+      try {
+         _data.at(i).resize(col);
+      } catch (...) {
+         throw vecteur_range_error(makeMessage
+                 (__FILE__, __FUNCTION__, __LINE__) +
+                 " : could not resize vector data");
+      }
+   }
 }
 
 template<typename T>
@@ -199,6 +201,9 @@ std::size_t Matrice<T>::sommeDiagonaleGD() {
       for (std::size_t i = 0; i < this->size(); i++) {
          toReturn += this->at(i).at(i);
       }
+   }else{
+      throw not_square_matrix(makeMessage
+              (__FILE__, __FUNCTION__, __LINE__));
    }
    else
    {
@@ -215,6 +220,9 @@ std::size_t Matrice<T>::sommeDiagonaleDG() {
       for (std::size_t i = 0; i < this->size(); i++) {
          toReturn += this->at(i).at(this->at(i).size() - i - 1);
       }
+   }else{
+      throw not_square_matrix(makeMessage
+              (__FILE__, __FUNCTION__, __LINE__));
    }
    else
    {

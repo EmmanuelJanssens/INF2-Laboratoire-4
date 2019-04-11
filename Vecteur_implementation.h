@@ -100,7 +100,6 @@ void Vecteur<T>::resize(std::size_t size) {
 template <typename T>
 Vecteur<T> Vecteur<T>::operator*(const T& valeur) {
    Vecteur<T> temp(this->size());
-   //check first
    for (std::size_t i = 0; i < this->_data.size(); i++) {
       temp.at(i) = this->at(i) * valeur;
    }
